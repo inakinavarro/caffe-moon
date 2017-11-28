@@ -594,6 +594,12 @@ layer {
   }
 }
 layer {
+  bottom: "global_pool8_max"
+  top: "norm_conv8_max"
+  type: "Normalize"
+  name: "norm_conv8_max"
+}
+layer {
   bottom: "bn_conv8"
   top: "global_pool8_ave" 
   name: "global_pool8_ave"
@@ -604,8 +610,15 @@ layer {
   }
 }
 layer {
-  bottom: "global_pool8_max"
   bottom: "global_pool8_ave"
+  top: "norm_conv8_ave"
+  type: "Normalize"
+  name: "norm_conv8_ave"
+}
+
+layer {
+  bottom: "norm_conv8_max"
+  bottom: "norm_conv8_ave"
   top: "concat_data"
   name: "concat_data"
   type: "Concat"
